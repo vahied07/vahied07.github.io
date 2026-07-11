@@ -1,148 +1,451 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Massively by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaik Vaheed — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --panel:#121826;
+    --panel-2:#161D2E;
+    --border:#232B3D;
+    --text:#E7EAF0;
+    --text-dim:#8A93A6;
+    --text-faint:#5B6478;
+    --cyan:#5EEAD4;
+    --amber:#F5B942;
+    --rose:#FB7185;
+    --radius:10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-position: -1px -1px;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  ::selection{background:var(--cyan); color:#06110F;}
 
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,14,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .nav-brand{font-family:'JetBrains Mono', monospace; font-size:14px; color:var(--cyan);}
+  .nav-links{display:flex; gap:28px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--text-dim);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links .idx{color:var(--text-faint); margin-right:4px;}
 
-				<!-- Intro -->
-					<div id="intro">
-						<h1>Vaheed The Analyst Portfolio<br /></h1>
-						<p>
-Data Analyst transforming complex datasets into actionable business insights using SQL, Python, and modern BI tools. 
-For more projects and code, visit 
-<a href="https://github.com/vahied07">@vahied07</a>
-</p>
-						<ul class="actions">
-							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
-						</ul>
-					</div>
+  /* HERO */
+  .hero{padding:100px 0 70px; border-bottom:1px solid var(--border);}
+  .terminal{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 16px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--border);
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.r{background:#FB7185;} .dot.y{background:#F5B942;} .dot.g{background:#5EEAD4;}
+  .terminal-title{margin-left:8px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-dim);}
+  .terminal-body{padding:26px 24px 30px; font-family:'JetBrains Mono', monospace; font-size:15px; min-height:190px;}
+  .prompt{color:var(--text-faint);}
+  .query{color:var(--cyan);}
+  #typedQuery{white-space:pre-wrap;}
+  .cursor{display:inline-block; width:8px; height:16px; background:var(--cyan); vertical-align:middle; animation:blink 1s step-start infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .result-row{
+    margin-top:18px; opacity:0; transform:translateY(6px);
+    transition:opacity .5s ease, transform .5s ease;
+    border-top:1px dashed var(--border); padding-top:18px;
+  }
+  .result-row.show{opacity:1; transform:translateY(0);}
+  .result-name{font-family:'Space Grotesk', sans-serif; font-size:34px; font-weight:700; color:var(--text);}
+  .result-role{color:var(--amber); font-size:14px; margin-top:6px;}
+  .result-meta{color:var(--text-dim); font-size:13px; margin-top:10px; line-height:1.7;}
+  .hero-sub{max-width:600px; margin-top:22px; color:var(--text-dim); font-size:15px;}
+  .hero-links{display:flex; gap:14px; margin-top:26px; flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono', monospace; font-size:13px;
+    padding:10px 18px; border-radius:6px; border:1px solid var(--border);
+    color:var(--text); transition:border-color .2s, color .2s;
+  }
+  .btn:hover{border-color:var(--cyan); color:var(--cyan);}
+  .btn.primary{background:var(--cyan); color:#06110F; border-color:var(--cyan); font-weight:600;}
+  .btn.primary:hover{color:#06110F; opacity:0.88;}
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Vaheed The Analyst</a>
-					</header>
+  /* KPI STRIP */
+  .kpi-section{padding:56px 0; border-bottom:1px solid var(--border);}
+  .kpi-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;}
+  .kpi{background:var(--panel); padding:26px 22px;}
+  .kpi-num{font-family:'Space Grotesk', sans-serif; font-size:32px; font-weight:700; color:var(--cyan);}
+  .kpi-label{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-dim); margin-top:8px; letter-spacing:0.02em;}
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li class="active"><a href="index.html">Projects</a></li>
-					
-						</ul>
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/shaikvaheed/" class="icon brands alt fa-linkedin"><span class="label">linkedin</span></a></li>
-							<li><a href="https://github.com/vahied07" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-							
-						</ul>
-					</nav>
+  /* SECTION HEADER */
+  .section{padding:64px 0; border-bottom:1px solid var(--border);}
+  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint); margin-bottom:10px; display:flex; align-items:center; gap:10px;}
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--border);}
+  .section h2{font-size:26px; margin-bottom:20px;}
 
-				<!-- Main -->
-					<div id="main">
+  /* ABOUT */
+  .about-text{max-width:760px; color:var(--text-dim); font-size:15.5px;}
+  .about-text strong{color:var(--text); font-weight:600;}
 
-						<!-- Featured Post -->
-							<article class="post featured">
-								<header class="major">
-									
-									<h2><a href="https://github.com/vahied07/-Used-Car-Price-Analysis">Used Car Price Analysis<br />
-									</a></h2>
-									<p>This project focuses on analyzing the price trends of used cars listed on CarWale. Using web 
-scraping, data was collected, cleaned, and visualized to derive insights into car pricing 
-patterns, brand dominance, fuel preferences, and other relevant metrics.</p>
-								</header>
-								<a href="https://github.com/vahied07/-Used-Car-Price-Analysis" class="image main"><img src="images/usedcarprice.png" alt="" /></a>
-								<ul class="actions special">
-									<li><a href="https://github.com/vahied07/-Used-Car-Price-Analysis" class="button large">View project</a></li>
-								</ul>
-							</article>
+  /* SKILLS */
+  .skill-groups{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-top:6px;}
+  .skill-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px;}
+  .skill-card h4{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--amber); margin-bottom:12px; font-weight:600;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-dim); border:1px solid var(--border); border-radius:5px; padding:5px 10px;}
 
+  /* EXPERIENCE */
+  .exp-item{position:relative; padding-left:26px; margin-bottom:36px; border-left:1px solid var(--border);}
+  .exp-item:last-child{margin-bottom:0;}
+  .exp-item::before{content:""; position:absolute; left:-5px; top:4px; width:9px; height:9px; border-radius:50%; background:var(--cyan);}
+  .exp-head{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; align-items:baseline;}
+  .exp-role{font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:600;}
+  .exp-date{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint);}
+  .exp-org{color:var(--amber); font-size:13.5px; margin-top:2px; font-family:'JetBrains Mono', monospace;}
+  .exp-list{margin-top:14px; color:var(--text-dim); font-size:14.5px;}
+  .exp-list li{margin-bottom:8px; padding-left:16px; position:relative;}
+  .exp-list li::before{content:"›"; position:absolute; left:0; color:var(--cyan);}
 
-						<!-- Posts -->
-							<section class="posts">
-								<article>
-									<header>
-										
-										<h2><a href="https://github.com/vahied07/Global_C02_Emissions_Tracker">Global CO2 Emissions Tracker<br />
-										</a></h2>
-									</header>
-									<a href="https://github.com/vahied07/Global_C02_Emissions_Tracker" class="image fit"><img src="images/emission.png" alt="" /></a>
-									<p>This project focuses on analysing global carbon dioxide (CO₂) emissions by country and economic 
-sector over time. The goal is to develop an interactive Power BI dashboard that enables users to track 
-emission trends, identify top emitting sectors and countries, and derive insights for environmental 
-policy and awareness..</p>
-									<ul class="actions special">
-										<li><a href="https://github.com/vahied07/Global_C02_Emissions_Tracker" class="button">View project</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										
-										<h2><a href="https://github.com/vahied07/Retail-Performance-and-Analysis"> End-to-End Retail Performance and Behavioral Analytics<br />
-										</a></h2>
-									</header>
-									<a href="https://github.com/vahied07/Retail-Performance-and-Analysis" class="image fit"><img src="images/RC1.jpg" alt="" /></a>
-									<p>Developed an end-to-end retail analytics project for RetailNova Inc. using Python, SQL, and Power BI to analyze sales, customer behavior, product performance, and returns..</p>
-									<ul class="actions special">
-										<li><a href="https://github.com/vahied07/Retail-Performance-and-Analysis" class="button">View Project</a></li>
-									</ul>
-								</article>
-								<article>
-									
-									
+  /* PROJECTS */
+  .proj-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; margin-top:6px;}
+  .proj-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; transition:transform .25s ease, border-color .25s ease;}
+  .proj-card:hover{transform:translateY(-4px); border-color:var(--cyan);}
+  .proj-img{width:100%; height:150px; object-fit:cover; display:block; border-bottom:1px solid var(--border); background:var(--panel-2);}
+  .proj-body{padding:18px 18px 20px; display:flex; flex-direction:column; flex:1;}
+  .proj-stack{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--cyan); margin-bottom:8px;}
+  .proj-title{font-family:'Space Grotesk', sans-serif; font-size:16.5px; font-weight:600; margin-bottom:8px;}
+  .proj-desc{color:var(--text-dim); font-size:13.5px; flex:1; margin-bottom:14px;}
+  .proj-link{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text); border-top:1px solid var(--border); padding-top:12px; display:flex; align-items:center; gap:6px;}
+  .proj-link:hover{color:var(--cyan);}
 
-						
+  /* EDU / CERT */
+  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:6px;}
+  .edu-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px;}
+  .edu-deg{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:15px;}
+  .edu-school{color:var(--text-dim); font-size:13px; margin-top:4px;}
+  .edu-date{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-faint); margin-top:8px;}
 
-				<
-						<section class="split contact">
-							<section class="alt">
-								<h3>Address</h3>
-								<p>25-12-449,Ramalayam Street,Police colony<br />
-								Nellore,AndhraPradesh,India</p>
-							</section>
-							<section>
-								<h3>Phone</h3>
-								<p><a href="#">+91 9550729554</a></p>
-							</section>
-							<section>
-								<h3>Email</h3>
-								<p><a href="#">vahied0730@gmail.com</a></p>
-							</section>
-							<section>
-								<h3>Social</h3>
-								<ul class="icons alt">
-									<li><a href="https://www.linkedin.com/in/shaikvaheed/" class="icon brands alt fa-linkedin"><span class="label">linkedin</span></a></li>
-									<li><a href="https://github.com/vahied07" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-								</ul>
-							</section>
-						</section>
-					</footer>
+  /* FOOTER / CONTACT */
+  footer{padding:64px 0 48px;}
+  .contact-title{font-size:30px; margin-bottom:10px;}
+  .contact-sub{color:var(--text-dim); max-width:520px; margin-bottom:30px; font-size:15px;}
+  .contact-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;}
+  .contact-cell{background:var(--panel); padding:18px; transition:background .2s;}
+  .contact-cell:hover{background:var(--panel-2);}
+  .contact-label{font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--text-faint); margin-bottom:6px;}
+  .contact-value{font-size:13.5px; color:var(--text); word-break:break-word;}
+  .foot-note{margin-top:40px; font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
 
-				<!-- Copyright -->
-					<div id="copyright">
-						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-					</div>
+  @media(max-width:820px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr);}
+    .skill-groups{grid-template-columns:1fr;}
+    .proj-grid{grid-template-columns:1fr;}
+    .edu-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:repeat(2,1fr);}
+    .nav-links{display:none;}
+    .result-name{font-size:26px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+</style>
+</head>
+<body>
 
-			</div>
+<nav>
+  <div class="wrap">
+    <div class="nav-brand">vaheed<span style="color:var(--text-dim);">.sql</span></div>
+    <div class="nav-links">
+      <a href="#about"><span class="idx">01</span>About</a>
+      <a href="#experience"><span class="idx">02</span>Experience</a>
+      <a href="#projects"><span class="idx">03</span>Projects</a>
+      <a href="#skills"><span class="idx">04</span>Skills</a>
+      <a href="#contact"><span class="idx">05</span>Contact</a>
+    </div>
+  </div>
+</nav>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<header class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="terminal-title">analysts.sql</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">--&gt; </span><span class="query" id="typedQuery"></span><span class="cursor" id="cur"></span></div>
+        <div class="result-row" id="resultRow">
+          <div class="result-name">Shaik Vaheed</div>
+          <div class="result-role">DATA ANALYST — SQL · Python · Power BI · Tableau · Excel</div>
+          <div class="result-meta">rows returned: 1 &nbsp;|&nbsp; location: Nellore, India &nbsp;|&nbsp; status: open to work</div>
+        </div>
+      </div>
+    </div>
 
-	</body>
+    <p class="hero-sub">Turning raw tables into decisions — data cleaning, KPI design, and dashboards for retail, sustainability, and market datasets. Hands-on across SQL, Python, Power BI, and Tableau.</p>
+
+    <div class="hero-links">
+      <a class="btn primary" href="#contact">Get in touch</a>
+      <a class="btn" href="https://github.com/vahied07" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="https://www.linkedin.com/in/shaikvaheed/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</header>
+
+<section class="kpi-section">
+  <div class="wrap">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-num">2,500+</div>
+        <div class="kpi-label">RECORDS ANALYZED — RESTAURANT DATASET</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">60%</div>
+        <div class="kpi-label">CUT IN MANUAL REPORTING TIME (15H → 6H/WK)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">25+</div>
+        <div class="kpi-label">KPIs TRACKED ACROSS 5 POWER BI DASHBOARDS</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">8,000+</div>
+        <div class="kpi-label">CUSTOMERS SEGMENTED INTO PROFIT TIERS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="eyebrow">01 / about</div>
+    <h2>Career objective</h2>
+    <p class="about-text">
+      Data Analyst with hands-on experience in <strong>SQL, Python, Power BI, Tableau, and Excel</strong> for analysis, reporting, and business intelligence. Comfortable across the full workflow — data cleaning, transformation, exploratory analysis, data modeling, and dashboard development. Background in analyzing retail and business datasets: spotting trends, tracking KPIs, and turning findings into recommendations stakeholders can act on. Focused on improving operational efficiency and business performance through clear, reliable reporting.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="eyebrow">02 / experience</div>
+    <h2>Professional experience</h2>
+
+    <div class="exp-item">
+      <div class="exp-head">
+        <div class="exp-role">Data Analyst Intern</div>
+        <div class="exp-date">SEPT 2025 — NOV 2025</div>
+      </div>
+      <div class="exp-org">Cognifyz Technologies · Remote</div>
+      <ul class="exp-list">
+        <li>Built and maintained SQL-driven analytical models across 2,500+ restaurant records spanning 15 cuisines, 12 cities, 4 pricing tiers, and 2 delivery channels.</li>
+        <li>Benchmarked 1,200+ establishments and found a 31% ratings gap favoring online-delivery restaurants, packaged into a 12-page insights report for pricing and digital strategy.</li>
+        <li>Turned business questions into metrics — pinpointed 3 dominant cuisines (58% of volume) and 5 high-performing cities (67% of market concentration) to guide location prioritization.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-head">
+        <div class="exp-role">Data Analyst Intern</div>
+        <div class="exp-date">JUNE 2025 — AUG 2025</div>
+      </div>
+      <div class="exp-org">Elevate Labs · Remote</div>
+      <ul class="exp-list">
+        <li>Built 5 interactive Power BI dashboards tracking 25+ KPIs across Sales, Customers, Products, Stores, and Returns, covering 50K+ transactions.</li>
+        <li>Designed 15+ SQL queries to surface revenue drivers, category-level profitability across 8 categories, and 12-month return trends across 5 relational datasets.</li>
+        <li>Identified 3 high-margin segments delivering 45% of revenue from just 18% of sales volume — a focused input for business decisions.</li>
+        <li>Automated 8 recurring SQL-based reports with Python, cutting manual reporting effort 60% (15 → 6 hours/week).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="eyebrow">03 / projects</div>
+    <h2>Key projects</h2>
+
+    <div class="proj-grid">
+      <div class="proj-card">
+        <img class="proj-img" src="https://vahied07.github.io/images/RC1.jpg" alt="Retail performance dashboard" loading="lazy">
+        <div class="proj-body">
+          <div class="proj-stack">PYTHON · SQL · POWER BI</div>
+          <div class="proj-title">End-to-End Retail Performance & Behavioural Analytics</div>
+          <div class="proj-desc">Relational model across 5 tables and 10 advanced SQL queries against a $120K annual budget context. Executive Power BI dashboard tracking 30+ KPIs across 12 stores; segmented 8,000+ customers into 4 profitability tiers and found an 18% margin edge for online vs. in-store.</div>
+          <a class="proj-link" href="https://github.com/vahied07/Retail-Performance-and-Analysis" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <img class="proj-img" src="https://vahied07.github.io/images/emission.png" alt="CO2 emissions dashboard" loading="lazy">
+        <div class="proj-body">
+          <div class="proj-stack">POWER BI · PYTHON (PANDAS) · EXCEL</div>
+          <div class="proj-title">Global CO₂ Emissions Tracker by Sector</div>
+          <div class="proj-desc">Restructured 7,560+ data points across 42 years and 180+ countries for time-series and sector-level benchmarking. Interactive dashboard with 12 dynamic filters and 8 KPI cards; found Power and Transport driving 68% of global emissions.</div>
+          <a class="proj-link" href="https://github.com/vahied07/Global_C02_Emissions_Tracker" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <img class="proj-img" src="https://vahied07.github.io/images/usedcarprice.png" alt="Used car price analysis dashboard" loading="lazy">
+        <div class="proj-body">
+          <div class="proj-stack">PYTHON (SELENIUM, BS4, PANDAS) · POWER BI</div>
+          <div class="proj-title">Used Car Market Price Analysis — Hyderabad</div>
+          <div class="proj-desc">Automated a scraping pipeline pulling 700+ listings, resolving 12% missing values and standardizing 8 attributes. Dashboard on brand dominance and geographic demand revealed an 18% diesel price premium and 22% variation across segments.</div>
+          <a class="proj-link" href="https://github.com/vahied07/-Used-Car-Price-Analysis" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="eyebrow">04 / skills</div>
+    <h2>Core skills</h2>
+
+    <div class="skill-groups">
+      <div class="skill-card">
+        <h4>DATA ANALYSIS & ANALYTICS</h4>
+        <div class="chip-row">
+          <span class="chip">Data Cleaning</span><span class="chip">Data Validation</span><span class="chip">EDA</span><span class="chip">Trend Analysis</span><span class="chip">Root Cause Analysis</span><span class="chip">KPI Development</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>REPORTING & VISUALIZATION</h4>
+        <div class="chip-row">
+          <span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Dashboard Development</span><span class="chip">Drill-through Analysis</span><span class="chip">Executive Reporting</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>DATABASE & QUERYING</h4>
+        <div class="chip-row">
+          <span class="chip">SQL</span><span class="chip">MySQL</span><span class="chip">Joins</span><span class="chip">Subqueries</span><span class="chip">CTEs</span><span class="chip">Aggregations</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>PROGRAMMING & AUTOMATION</h4>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Report Automation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>EXCEL</h4>
+        <div class="chip-row">
+          <span class="chip">Pivot Tables</span><span class="chip">VLOOKUP / XLOOKUP</span><span class="chip">MIS Reporting</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>BUSINESS INTELLIGENCE</h4>
+        <div class="chip-row">
+          <span class="chip">Data Modeling</span><span class="chip">Performance Monitoring</span><span class="chip">Process Improvement</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="eyebrow">05 / education</div>
+    <h2>Education & certification</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-deg">Master of Computer Applications (MCA)</div>
+        <div class="edu-school">KIST, Nellore</div>
+        <div class="edu-date">2021 — 2023</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">Bachelor of Computer Applications (BCA)</div>
+        <div class="edu-school">KCDC, Nellore</div>
+        <div class="edu-date">2018 — 2021</div>
+      </div>
+      <div class="edu-card" style="grid-column:1 / -1;">
+        <div class="edu-deg">Certification — Data Analytics with AI</div>
+        <div class="edu-school">Excellence Institute</div>
+        <div class="edu-date">2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="eyebrow">06 / contact</div>
+    <h2 class="contact-title">Let's talk data.</h2>
+    <p class="contact-sub">Open to Data Analyst, MIS Analyst, and Business Analyst roles — remote or on-site across Bengaluru, Hyderabad, and Mumbai.</p>
+
+    <div class="contact-grid">
+      <a class="contact-cell" href="mailto:vahied0730@gmail.com">
+        <div class="contact-label">EMAIL</div>
+        <div class="contact-value">vahied0730@gmail.com</div>
+      </a>
+      <a class="contact-cell" href="tel:+919550729554">
+        <div class="contact-label">PHONE</div>
+        <div class="contact-value">+91 95507 29554</div>
+      </a>
+      <a class="contact-cell" href="https://www.linkedin.com/in/shaikvaheed/" target="_blank" rel="noopener">
+        <div class="contact-label">LINKEDIN</div>
+        <div class="contact-value">/in/shaikvaheed</div>
+      </a>
+      <a class="contact-cell" href="https://github.com/vahied07" target="_blank" rel="noopener">
+        <div class="contact-label">GITHUB</div>
+        <div class="contact-value">@vahied07</div>
+      </a>
+    </div>
+
+    <div class="foot-note">
+      <span>Nellore, Andhra Pradesh, India</span>
+      <span>© 2026 Shaik Vaheed</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const q = "SELECT name, role FROM analysts WHERE name = 'Shaik Vaheed';";
+  const el = document.getElementById('typedQuery');
+  const cur = document.getElementById('cur');
+  const row = document.getElementById('resultRow');
+  let i = 0;
+
+  function type(){
+    if(i <= q.length){
+      el.textContent = q.slice(0, i);
+      i++;
+      setTimeout(type, 22);
+    } else {
+      cur.style.display = 'none';
+      setTimeout(() => row.classList.add('show'), 150);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', () => setTimeout(type, 300));
+</script>
+
+</body>
 </html>
